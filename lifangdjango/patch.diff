@@ -1,0 +1,48 @@
+From 2f2a664c08f0994436c9fff2c6640e2d6f62a19e Mon Sep 17 00:00:00 2001
+From: "DESKTOP-E53T98J\\user" <swavepark@gmail.com>
+Date: Tue, 3 Jan 2023 09:33:20 +0900
+Subject: [PATCH] =?UTF-8?q?=EC=9D=B4=EC=A0=84=20=ED=99=94=EB=A9=B4?=
+ =?UTF-8?q?=EC=9C=BC=EB=A1=9C=20=EB=8F=8C=EB=A6=AC=EA=B8=B0?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ .../__pycache__/settings.cpython-39.pyc       | Bin 3515 -> 3486 bytes
+ lifang_django/settings.py                     |   2 +-
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lifang_django/__pycache__/settings.cpython-39.pyc b/lifang_django/__pycache__/settings.cpython-39.pyc
+index 16d6d9bf9fc018a7d42970af46ccd7c2dfac8f90..2239ef44e575d2ee96e93bde0e21e78f759325fe 100644
+GIT binary patch
+delta 323
+zcmX|4xlY4C5cPU(IXKxQ&gI0La9`mj+*eOeH(kU_EF(G!%1G1*3DK?)$uGF%=NJ}=
+z8ND|%Pfu^Y^`}-tr9y`*f6nh;-xW;)1Snt*A<rU8P$(OT3aW@uvs^dsSfF8iR-0&9
+z{AscA&_)M75@>X}dsdmp0v3%-T`bvq87sf{*vG0VP%(9|HWO6hxjx}VVS~!p9La~u
+zS9KJiKXp^Vp<8U&o{3Cg$9Sor2)k6n9`@ODpdB0<HxpFH07vW@;Mnqs<<m^09yM@A
+zO`KB;KE;eS1mvS6i3{p*%BAi(9Gv{WzM8tEaZO#wJEwn>zlb*>;*Urs`K^2ke*j<v
+BP#ypP
+
+delta 325
+zcmX|4$xg#i42<&<5z?k@x~56XzLlMpeftS+z9FWKf;e)o#2pag`c%>WLXP|#<{@Eg
+z#`b75o+RH%a32J|B{g}@A6`EK9((XG4<7}YMFc3JtQ9H<QAN#gUE3o<L%X6j(K7hc
+zBJH4!7%mcY(3M^=$|9DqtW|1b#oVh{`@Kgl*0sll)WXJ$xF~aTEK7hbE}=J6kL9n*
+za1Ps3J0%I-5yS3`GQysAQsNN%T*Uzn#dDNc=xaM8u3>;<@eFWc_|))OMybPfoO1&g
+z+=R<5K?H(&Qmk;vZArOGx|RgT|F5s7HYd2@4%D61yUkzdjVSsIRZRW7tls?}7T{21
+
+diff --git a/lifang_django/settings.py b/lifang_django/settings.py
+index adee7c0..4d3454e 100644
+--- a/lifang_django/settings.py
++++ b/lifang_django/settings.py
+@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ["*"]
+ # Application definition
+ 
+ BATON = {    
+-    'SITE_HEADER': '리팡 관리자 화면2',
++    'SITE_HEADER': '리팡 관리자 화면',
+     'SITE_TITLE': '리팡 관리자 화면',
+     'INDEX_TILTE': '리팡 관리자 화면',
+     'SUPPORT_HREF': 'https://www.lifanglaw.co.kr/',
+-- 
+2.36.0.windows.1
+
