@@ -17,6 +17,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+#print(os.environ['SECRET_KEY'])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -169,21 +170,21 @@ WSGI_APPLICATION = "lifang_django.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # mysql 엔진 설정
         'NAME': 'lifang',  # 데이터베이스 이름
-        'USER': 'root',  # 데이터베이스 연결시 사용할 유저 이름
+        'USER': 'mkseo',  # 데이터베이스 연결시 사용할 유저 이름
         'PASSWORD': 'qweqwe',  # 유저 패스워드
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'HOST': '172.17.0.1',
+        'PORT': '3307'
     },
 }
 

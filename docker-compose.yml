@@ -1,10 +1,12 @@
+version: '3'
+
 volumes:
   mysql_data: {}
 
 services:
-  mysql:
+  mysql_li:
     image: mysql:5.7
-    container_name: mysql_service
+    container_name: mysql_service_li
     volumes:
       - mysql_data:/var/lib/mysql
       
@@ -15,9 +17,9 @@ services:
       MYSQL_PASSWORD: "${DB_PASSWORD}"
     command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci
     ports:
-      - 3306:3306
+      - 3307:3306
 
-  django:
+  django_li:
     build:
       context: .
       dockerfile: lifangdjango/Dockerfile
@@ -26,12 +28,12 @@ services:
       - ./:/srv/lifang/
     #command: ["./manage.py", "runserver", "0:8000"]
     command: 
-    command: ["python", "lifangdjango/manage.py", "runserver", "--settings=lifang_django.settings.local", "0.0.0.0:8000"]
+    command: ["python", "lifangdjango/manage.py", "runserver", "--settings=lifang_django.settings.production", "0.0.0.0:8000"]
     
     # environment:
     #   - DJANGO_DB_HOST=db
     depends_on:
-      - mysql
+      - mysql_li
     restart: always
     ports:
       - 8000:8000
