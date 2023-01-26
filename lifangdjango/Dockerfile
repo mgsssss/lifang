@@ -1,6 +1,6 @@
 # docker run -p 8000:8000  server_dev/django​
 
-FROM python:3
+FROM python:3.10.9-slim
 
 ENV PYTHONUNBUFFERED 1 
 
