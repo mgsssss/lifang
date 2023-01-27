@@ -32,7 +32,7 @@ class Product(models.Model):
     site_name = models.SmallIntegerField('사이트 이름', choices=choices)
     brand_name = models.CharField(max_length=256, verbose_name='브랜드명', null=True, default='')
     name = models.CharField(max_length=256, verbose_name='상품명', null=True,default='')
-    price = models.IntegerField(verbose_name='상품가격')
+    price = models.CharField(max_length=255, verbose_name='상품가격')
     url = models.URLField(max_length=255)
     # descrtiption = models.TextField(verbose_name='상품설명')
     created_at = models.DateTimeField(auto_now_add=True) # 등록날짜
