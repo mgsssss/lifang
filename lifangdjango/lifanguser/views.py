@@ -2,9 +2,22 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView 
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth.hashers import make_password
-from .models import Lifanguser
+from .models import Lifanguser, Company
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .serializer import CompanySerializer
 
 # Create your views here.
+
+
+class CompanyAPIView(APIView):
+    def get(self, request):
+        company = Company.objects.all()
+        serializer = CompanySerializer(company, many=True)
+        return Response(serializer.data)
+    
 
 def index(request):
     return render(request, 'index.html', {'email': request.session.get('user')})

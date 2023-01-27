@@ -4,7 +4,7 @@ from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from django.http import Http404
 
-from .models import Product
+from .models import Product, Project
 
 from rest_framework import generics
 from rest_framework import mixins
@@ -14,10 +14,23 @@ from rest_framework import status
 
 from lifanguser.decorator import login_requierd, admin_requierd
 from .forms import RegisterForm 
-from .serializer import ProductSerializer
+from .serializer import ProductSerializer, ProjectSerializer
 
 from order.forms import RegisterForm as OrderForm 
 
+
+class ProjectAPIView(APIView):
+    def get(self, request):
+        products = Project.objects.all()
+        serializer = ProjectSerializer(products, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, format=None):
+        serializer = ProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProductAPIView(APIView):
     
