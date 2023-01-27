@@ -10,12 +10,12 @@ class ProductInline(admin.StackedInline):
     extra = 0
     
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['company', 'name', 'fake_num', 'site_name']
+    list_display = ['company', 'name', 'fake_num']
     inlines = [ProductInline]
 
 class ProductAdmin(admin.ModelAdmin):
     # 'project__company_name', 
-    list_display = ('brand_name', 'name',  'price',  'created_at')
+    list_display = ('brand_name', 'name',  'price', 'site_name', 'created_at')
     list_filter = ('project__fake_num',)
     search_fields = ['name']
     
