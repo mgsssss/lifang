@@ -23,7 +23,7 @@ class Project(models.Model):
 
 # 상품
 class Product(models.Model):
-    choices = ((1, '타오바오'), (2, '1688'), (3, '알리바바'), (4, '쇼피'),)
+    choices = ((1, '타오바오'), (2, '1688'), (3, '알리바바'), (4, '쇼피'), (5, '기타'))
 
     id = models.AutoField(primary_key=True)
     # image = models.ImageField(max_length=255, upload_to='images/')
