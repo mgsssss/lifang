@@ -1,6 +1,6 @@
 from django.db import models
 from lifanguser.models import *
-from .category import product_category
+from .category import product_category, type_choices
 
 # 유저 -> 컴퍼니 -> 프로젝트 -> 프로덕트 -> 카테고리
                     # -> 브랜드 사이트 이름 
@@ -28,6 +28,7 @@ class Product(models.Model):
     id = models.AutoField(primary_key=True)
     # image = models.ImageField(max_length=255, upload_to='images/')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    type_id = models.SmallIntegerField('침해 유형', choices=type_choices())
     category_id = models.SmallIntegerField(choices=product_category(), default=1)
     site_name = models.SmallIntegerField('사이트 이름', choices=choices)
     brand_name = models.CharField(max_length=256, verbose_name='브랜드명', null=True, default='')
