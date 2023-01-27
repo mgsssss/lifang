@@ -21,6 +21,13 @@ from order.forms import RegisterForm as OrderForm
 
 class ProductAPIView(APIView):
     
+    def get(self, request):
+        # products = Product.objects.filter(active=True)
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    
+    
     def post(self, request, format=None):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
