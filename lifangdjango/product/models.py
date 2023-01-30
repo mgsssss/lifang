@@ -2,7 +2,7 @@ from django.db import models
 from lifanguser.models import *
 from .category import product_category, type_choices
 from uuid import uuid4
-
+import os
 # 유저 -> 컴퍼니 -> 프로젝트 -> 프로덕트 -> 카테고리
                     # -> 브랜드 사이트 이름 
 
