@@ -25,7 +25,7 @@ class Project(models.Model):
 
 
 def rename_imagefile_to_uuid(instance, filename):
-        upload_to = f'images/{instance}'
+        upload_to = f'images/'
         ext = filename.split('.')[-1]
         uuid = uuid4().hex
 
