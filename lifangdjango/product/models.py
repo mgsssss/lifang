@@ -5,6 +5,7 @@ from .category import product_category, type_choices
 # 유저 -> 컴퍼니 -> 프로젝트 -> 프로덕트 -> 카테고리
                     # -> 브랜드 사이트 이름 
 
+
 # 프로젝트
 class Project(models.Model):
     # 타오바오 1688 라자다 알리바바 쇼피
@@ -26,7 +27,7 @@ class Product(models.Model):
     choices = ((1, '타오바오'), (2, '1688'), (3, '알리바바'), (4, '쇼피'), (5, '기타'))
 
     id = models.AutoField(primary_key=True)
-    # image = models.ImageField(max_length=255, upload_to='images/')
+    image = models.ImageField(max_length=255, upload_to='images/')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     type_id = models.SmallIntegerField('침해 유형', choices=type_choices())
     category_id = models.SmallIntegerField(choices=product_category(), default=1)

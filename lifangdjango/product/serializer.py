@@ -12,5 +12,5 @@ class ProjectSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ('company', 'name', 'fake_num')
         
