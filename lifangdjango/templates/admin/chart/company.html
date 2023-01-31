@@ -1,0 +1,126 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+
+
+
+{% block extrahead %}
+
+<!-- block.super는 내부에 사용할 태그들을 모두 사용하는 태그 -->
+{{ block.super }}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.min.js" integrity="sha512-MC1YbhseV2uYKljGJb7icPOjzF2k6mihfApPyPhEAo3NsLUW0bpgtL4xYWK1B+1OuSrUkfOTfhxrRKCz/Jp3rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% endblock %}
+
+
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+
+{% block content %}
+<div style="padding: 16px;">
+  <h4>{{ company_name }} 가품 등록 현황 </h4>
+  
+  {% if company %}
+    <div class=" w-25">
+      <select id="company_select" class="form-control h-100 w-100" aria-label="Default select example">
+        {% for com in company %}
+          {% if com.name == company_name %}
+            <option value="{{ com.id }}" selected>{{ com.name }}</option>
+          {% else %}
+            <option value="{{ com.id }}">{{ com.name }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+  {% endif %}
+</div>
+<div id="content-main" class="p-4">
+  
+  <canvas class="graph" id="orderChart" style="margin:0 auto; min-height:300px; background: #f6f6f6;"></canvas>
+  <table class="table">
+    <thead >
+      <th scope="col" style="width: 30%;">사이트 명</th>
+      <th scope="col" style="width: 30%;">숫자</th>
+    </thead>
+    <tbody> 
+      {% for c in cnt %}
+      <tr><td>{{ c.site }}</td><td>{{ c.cnt }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js
+"></script>
+
+<script >
+  {% if company %}
+    const company_select = document.getElementById('company_select');
+    company_select.addEventListener('change', (e)=> {
+      location.href = '/admin/company_chart/'+e.target.value+'/';
+    });
+  {% endif %}
+
+  //let backgroundColor = ['rgba(255, 26, 104, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 205, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153,102,255,0.2)'];
+  let backgroundColor = ['rgb(255, 99, 132)', 'rgb(255, 159, 64)', 'rgb(255, 205, 86)', 'rgba(255, 205, 86, 0.2)', 'rgb(75, 192, 192)'];
+  let borderColor = ['rgba(255, 26, 104, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255,206,86,1)', 'rgba(75, 192, 192, 1)', 'rgba(153,102,255,1)'];
+  const ctx = document.getElementById('orderChart');
+
+  var labels = [];
+  var data = [];
+  {% for site in cnt %}
+    labels.push('{{ site.site }}');  
+    data.push({{ site.cnt }});
+  {% endfor %}
+  
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '가품건수',
+        data: data,
+        backgroundColor: backgroundColor,
+        borderColor: borderColor,
+
+      }]
+    },
+    options: {
+      responsive: false,
+      layout: {
+        padding: 10
+      },
+      plugins: {
+        datalabels: {
+          font: {
+            size: 18,
+          },
+        },
+      }
+    },
+    plugins:[ChartDataLabels]
+  });
+</script>
+<style>
+  .table th, td {
+    text-align: center;
+    } 
+</style>
+{% endblock %}
+
+

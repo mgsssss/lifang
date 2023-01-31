@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.template.response import TemplateResponse
 
 from django.urls import path, include, re_path
-from lifanguser.views import index, logout, RegisterView, LoginView, CompanyAPIView
+from lifanguser.views import index, logout, RegisterView, LoginView, CompanyAPIView, CompanyChartTemplateView, ProjectChartTemplateView, CategoryChartTemplateView, TypeChartTemplateView, ProjectCategoryChartTemplateView, ProjectTypeChartTemplateView
 from product.views import (ProductList, ProductCreate, ProductDetail,
      ProductListAPI, ProductDetailAPI, ProductAPIView, ProjectAPIView)
 from order.views import OrderCreate, OrderList
@@ -59,6 +59,22 @@ admin.site.index = lifang_admin_index
 urlpatterns = [
     
     #re_path 정확히 일치하는 애만 연결
+    re_path(r'^admin/company_chart/$', CompanyChartTemplateView.as_view()),
+    re_path(r'^admin/company_chart/(?P<pk>\d+)/$', CompanyChartTemplateView.as_view()),
+    re_path(r'^admin/project_chart/$', ProjectChartTemplateView.as_view()),
+    re_path(r'^admin/project_chart/(?P<pk>\d+)/$', ProjectChartTemplateView.as_view()),
+    re_path(r'^admin/category_chart/$', CategoryChartTemplateView.as_view()),
+    re_path(r'^admin/category_chart/(?P<pk>\d+)/$', CategoryChartTemplateView.as_view()),
+    re_path(r'^admin/type_chart/$', TypeChartTemplateView.as_view()),
+    re_path(r'^admin/type_chart/(?P<pk>\d+)/$', TypeChartTemplateView.as_view()),
+        
+    re_path(r'^admin/project_category_chart/$', ProjectCategoryChartTemplateView.as_view()),
+    re_path(r'^admin/project_category_chart/(?P<pk>\d+)/$', ProjectCategoryChartTemplateView.as_view()),    
+    
+    re_path(r'^admin/project_type_chart/$', ProjectTypeChartTemplateView.as_view()),
+    re_path(r'^admin/project_type_chart/(?P<pk>\d+)/$', ProjectTypeChartTemplateView.as_view()),        
+    # re_path(r'^admin/category_chart/$', ChartTemplateView.as_view()),
+    # re_path(r'^admin/chart/$', ChartTemplateView.as_view()),
     re_path(r'^admin/manual/$', TemplateView.as_view(template_name='admin/manual.html', 
             extra_context={'title' : '매뉴얼', 'site_title':'리팡 관리자 화면', 'site_header':'리팡 관리자 화면'})),
     path('admin/', admin.site.urls),

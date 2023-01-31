@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Product, Project
+from lifanguser.models import Company
 from django.contrib.humanize.templatetags.humanize import intcomma
 
 #태그를 바로 쓰면 안된다. 아래 함수를 쓰면 html로 인식한다.
@@ -10,14 +11,30 @@ class ProductInline(admin.StackedInline):
     extra = 0
     
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['company', 'name', 'fake_num']
+    list_display = ['company', 'name', 'fake_num', 'created_at']
+    search_fields = ['name']
     inlines = [ProductInline]
+    
+    def get_queryset(self, obj):
+        qs = super(ProjectAdmin, self).get_queryset(obj)
+        if obj.user.is_superuser == False:
+            company = Company.objects.get(user_id=obj.user.id)
+            qs = qs.filter(company=company.id)
+        return qs
 
 class ProductAdmin(admin.ModelAdmin):
     # 'project__company_name', 
-    list_display = ('brand_name', 'name',  'price', 'site_name', 'created_at')
-    list_filter = ('project__fake_num',)
+    list_display = ('brand_name', 'name',  'price', 'category_id' ,'type_id', 'site_name', 'created_at')
+    list_filter = ('site_name', 'type_id')
     search_fields = ['name']
+
+    
+    def get_queryset(self, obj):
+        qs = super(ProductAdmin, self).get_queryset(obj)
+        if obj.user.is_superuser == False:
+            company = Company.objects.get(user_id=obj.user.id)
+            qs = qs.filter(project__company=company.id)
+        return qs        
     
     def price_format(self,obj):
       price = intcomma(obj.price)

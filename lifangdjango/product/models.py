@@ -12,9 +12,9 @@ class Project(models.Model):
     # 타오바오 1688 라자다 알리바바 쇼피
     id = models.AutoField(primary_key=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField('프로젝트', max_length=255)
     fake_num = models.IntegerField(verbose_name='가품발견수')
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField('등록일자', auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
@@ -50,8 +50,8 @@ class Product(models.Model):
     name = models.CharField(max_length=256, verbose_name='상품명', null=True,default='')
     price = models.CharField(max_length=255, verbose_name='상품가격')
     url = models.URLField(max_length=255)
-    # descrtiption = models.TextField(verbose_name='상품설명')
-    created_at = models.DateTimeField(auto_now_add=True) # 등록날짜
+    descrtiption = models.CharField(max_length=255, verbose_name='상품설명')
+    created_at = models.DateTimeField('등록일자', auto_now_add=True) # 등록날짜
     updated_at = models.DateTimeField(auto_now=True) # 수정날짜
     
     def __str__(self):

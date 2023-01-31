@@ -100,7 +100,7 @@ BATON = {
             },
             {
                 'name': 'product',
-                'label': '상품'
+                'label': '가품'
             },
         )
     },    
@@ -110,12 +110,21 @@ BATON = {
     #     { 'type': 'free', 'label': '프로젝트2', 'url': '/admin/order/order/date_view/' },
     # ]
     # },
-    {
-        'type': 'free', 'label': '통계', 'url': '/admin/manual/' 
+    # {'type': 'free', 'label': '통계', 'url': '/admin/manual/' },
+    { 'type': 'free', 'label': '기업 통계', 'children': [
+        { 'type': 'free', 'label': '기업 침해', 'url': '/admin/company_chart/' },
+        { 'type': 'free', 'label': '카테고리 침해', 'url': '/admin/category_chart/' },
+        { 'type': 'free', 'label': '침해유형 침해', 'url': '/admin/type_chart/' },
+    ]
     },
+    { 'type': 'free', 'label': '프로젝트 통계', 'children': [
+        { 'type': 'free', 'label': '프로젝트 침해', 'url': '/admin/project_chart/' },
+        { 'type': 'free', 'label': '카테고리 침해', 'url': '/admin/project_category_chart/' },
+        { 'type': 'free', 'label': '침해유형 침해', 'url': '/admin/project_type_chart/' },
+    ]
+    },    
    
     ),
-
 }
 
 
@@ -183,7 +192,7 @@ DATABASES = {
         'NAME': 'lifang',  # 데이터베이스 이름
         'USER': 'mkseo',  # 데이터베이스 연결시 사용할 유저 이름
         'PASSWORD': 'qweqwe',  # 유저 패스워드
-        'HOST': '172.17.0.1',
+        'HOST': '3.38.167.143',
         'PORT': '3307'
     },
 }

@@ -21,7 +21,7 @@ class LifanguserAdmin(admin.ModelAdmin):
         return super().changeform_view(request, object_id, form_url, extra_context)
             
 
-admin.site.register(Company)    
+admin.site.register(Company)
 admin.site.register(Category)
 admin.site.register(SubCategory)
 admin.site.register(Lifanguser, LifanguserAdmin)
