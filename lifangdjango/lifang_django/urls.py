@@ -21,7 +21,7 @@ from django.template.response import TemplateResponse
 from django.urls import path, include, re_path
 from lifanguser.views import index, logout, RegisterView, LoginView, CompanyAPIView, CompanyChartTemplateView, ProjectChartTemplateView, CategoryChartTemplateView, TypeChartTemplateView, ProjectCategoryChartTemplateView, ProjectTypeChartTemplateView
 from product.views import (ProductList, ProductCreate, ProductDetail,
-     ProductListAPI, ProductDetailAPI, ProductAPIView, ProjectAPIView)
+     ProductListAPI, ProductDetailAPI, ProductAPIView, ProjectAPIView, ProjectDetailAPIView)
 from order.views import OrderCreate, OrderList
 from django.views.generic import TemplateView
 
@@ -94,5 +94,6 @@ urlpatterns = [
     
     path('api/product_apiview/',ProductAPIView.as_view()),
     path('api/project_apiview/',ProjectAPIView.as_view()),
+    path('api/project_apiview/<int:pk>',ProjectDetailAPIView.as_view()),
     path('api/company_apiview/',CompanyAPIView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -41,7 +41,7 @@ class Product(models.Model):
     choices = ((1, '타오바오'), (2, '1688'), (3, '알리바바'), (4, '쇼피'), (5, '기타'))
 
     id = models.AutoField(primary_key=True)
-    image = models.ImageField(max_length=255, upload_to=rename_imagefile_to_uuid)
+    image = models.ImageField(max_length=255, upload_to=rename_imagefile_to_uuid, null=True, default='')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     type_id = models.SmallIntegerField('침해 유형', choices=type_choices())
     category_id = models.SmallIntegerField(choices=product_category(), default=1)
@@ -50,7 +50,7 @@ class Product(models.Model):
     name = models.CharField(max_length=256, verbose_name='상품명', null=True,default='')
     price = models.CharField(max_length=255, verbose_name='상품가격')
     url = models.URLField(max_length=255)
-    descrtiption = models.CharField(max_length=255, verbose_name='상품설명')
+    descrtiption = models.CharField(max_length=255, verbose_name='상품설명', null=True, default='')
     created_at = models.DateTimeField('등록일자', auto_now_add=True) # 등록날짜
     updated_at = models.DateTimeField(auto_now=True) # 수정날짜
     

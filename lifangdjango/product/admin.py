@@ -24,9 +24,9 @@ class ProjectAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     # 'project__company_name', 
-    list_display = ('brand_name', 'name',  'price', 'category_id' ,'type_id', 'site_name', 'created_at')
-    list_filter = ('site_name', 'type_id')
-    search_fields = ['name']
+    list_display = ('brand_name', 'name', 'price', 'category_id' ,'type_id', 'site_name', 'created_at')
+    list_filter = ('project__name',)
+    search_fields = ['name', 'project__name']
 
     
     def get_queryset(self, obj):
