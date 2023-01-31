@@ -94,6 +94,6 @@ urlpatterns = [
     
     path('api/product_apiview/',ProductAPIView.as_view()),
     path('api/project_apiview/',ProjectAPIView.as_view()),
-    path('api/project_apiview/<int:pk>',ProjectDetailAPIView.as_view()),
+    path('api/project_apiview/<int:pk>',ProjectDetailAPIView),
     path('api/company_apiview/',CompanyAPIView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

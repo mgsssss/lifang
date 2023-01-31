@@ -11,32 +11,41 @@ from rest_framework import mixins
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view
 
 from lifanguser.decorator import login_requierd, admin_requierd
 from .forms import RegisterForm 
 from .serializer import ProductSerializer, ProjectSerializer
 
 from order.forms import RegisterForm as OrderForm 
+from django.http import JsonResponse
+# class ProjectDetailAPIView(APIView):
+#     """
+#     Retrieve, update or delete a snippet instance.
+#     """
+#     def get_object(self, pk):
+#         try:
+#             return Project.objects.get(pk=pk)
+#         except Project.DoesNotExist:
+#             raise Http404
 
-class ProjectDetailAPIView(APIView):
-    """
-    Retrieve, update or delete a snippet instance.
-    """
-    def get_object(self, pk):
-        try:
-            return Project.objects.get(pk=pk)
-        except Project.DoesNotExist:
-            raise Http404
+#     def put(self, request, pk, format=None):
+#         project = self.get_object(pk)
+#         serializer = ProjectSerializer(project, data=request.data, partial=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk, format=None):
-        project = self.get_object(pk)
-        serializer = ProjectSerializer(project, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
+@api_view(["GET"])
+def ProjectDetailAPIView(request, pk):
+    if request.method == "GET":
+        cnt = Product.objects.filter(project_id=pk).count()
+        project = Project.objects.get(id=pk)
+        project.fake_num = cnt
+        project.save()
+        
+        return JsonResponse({"cnt": project.fake_num})
 
 class ProjectAPIView(APIView):
     def get(self, request):
