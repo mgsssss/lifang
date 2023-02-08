@@ -112,13 +112,13 @@ BATON = {
     # },
     # {'type': 'free', 'label': '통계', 'url': '/admin/manual/' },
     { 'type': 'free', 'label': '기업 통계', 'children': [
-        { 'type': 'free', 'label': '기업 침해', 'url': '/admin/company_chart/' },
+        { 'type': 'free', 'label': '플랫폼별 침해', 'url': '/admin/company_chart/' },
         { 'type': 'free', 'label': '카테고리 침해', 'url': '/admin/category_chart/' },
         { 'type': 'free', 'label': '침해유형 침해', 'url': '/admin/type_chart/' },
     ]
     },
     { 'type': 'free', 'label': '프로젝트 통계', 'children': [
-        { 'type': 'free', 'label': '프로젝트 침해', 'url': '/admin/project_chart/' },
+        { 'type': 'free', 'label': '플랫폼별 침해', 'url': '/admin/project_chart/' },
         { 'type': 'free', 'label': '카테고리 침해', 'url': '/admin/project_category_chart/' },
         { 'type': 'free', 'label': '침해유형 침해', 'url': '/admin/project_type_chart/' },
     ]
