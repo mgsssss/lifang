@@ -25,7 +25,7 @@ class ProjectTypeChartTemplateView(TemplateView):
     extra_context = {'title' : '프로젝트별 침해유형 차트', 'site_title':'리팡 관리자 화면', 'site_header':'리팡 관리자 화면'}
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        company_id = self.request.user.company.id
+        
         project_id = kwargs.get('pk', None)
         if self.request.user.is_superuser == True:
             context['project'] = Project.objects.all().values('id', 'company__name', 'name')
@@ -34,8 +34,11 @@ class ProjectTypeChartTemplateView(TemplateView):
             context['project'] = Project.objects.filter(company__id = company_id).values('id', 'company__name', 'name')
         
         if project_id == None:
-            query_set = Project.objects.filter(company=company_id).order_by('-id').values('id').first()
-            project_id = query_set['id']
+            if self.request.user.is_superuser == True:
+                project_id = context['project'][0]['id']
+            else:
+                query_set = Project.objects.filter(company=company_id).order_by('-id').values('id').first()
+                project_id = query_set['id']
         context['project_id'] = int(project_id)
         
         cnt = Product.objects.filter(project=project_id).values('type_id').annotate(cnt=Count('type_id')).values('cnt', 'type_id')
@@ -57,7 +60,6 @@ class ProjectCategoryChartTemplateView(TemplateView):
     extra_context = {'title' : '프로젝트별 침해유형 차트', 'site_title':'리팡 관리자 화면', 'site_header':'리팡 관리자 화면'}
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        company_id = self.request.user.company.id
         project_id = kwargs.get('pk', None)
         if self.request.user.is_superuser == True:
             context['project'] = Project.objects.all().values('id', 'company__name', 'name')
@@ -66,8 +68,11 @@ class ProjectCategoryChartTemplateView(TemplateView):
             context['project'] = Project.objects.filter(company__id = company_id).values('id', 'company__name', 'name')
         
         if project_id == None:
-            query_set = Project.objects.filter(company=company_id).order_by('-id').values('id').first()
-            project_id = query_set['id']
+            if self.request.user.is_superuser == True:
+                project_id = context['project'][0]['id']
+            else:
+                query_set = Project.objects.filter(company=company_id).order_by('-id').values('id').first()
+                project_id = query_set['id']
         context['project_id'] = int(project_id)
         
         cnt = Product.objects.filter(project=project_id).values('category_id').annotate(cnt=Count('category_id')).values('cnt', 'category_id')
@@ -89,7 +94,7 @@ class TypeChartTemplateView(TemplateView):
     extra_context = {'title' : '기업별 침해유형 차트', 'site_title':'리팡 관리자 화면', 'site_header':'리팡 관리자 화면'}
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        company_id = self.request.user.company.id
+        
         #Project.objects.prefetch_related('product_set').values('product__site_name').annotate(site_cnt=Count('product__site_name'), product_name=F('project_id')).values('site_cnt', 'product_name')
         if self.request.user.is_superuser == True:
             company_id = kwargs.get('pk', 1)
@@ -120,7 +125,7 @@ class CompanyChartTemplateView(TemplateView):
     extra_context = {'title' : '기업별 침해유형 차트', 'site_title':'리팡 관리자 화면', 'site_header':'리팡 관리자 화면'}
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        company_id = self.request.user.company.id
+        
         #Project.objects.prefetch_related('product_set').values('product__site_name').annotate(site_cnt=Count('product__site_name'), product_name=F('project_id')).values('site_cnt', 'product_name')
         if self.request.user.is_superuser == True:
             company_id = kwargs.get('pk', 1)
@@ -143,7 +148,7 @@ class ProjectChartTemplateView(TemplateView):
     extra_context = {'title' : '프로젝트별 침해유형 차트', 'site_title':'리팡 관리자 화면', 'site_header':'리팡 관리자 화면'}
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        company_id = self.request.user.company.id
+        #company_id = self.request.user.company.id
         project_id = kwargs.get('pk', None)
         if self.request.user.is_superuser == True:
             context['project'] = Project.objects.all().values('id', 'company__name', 'name')
@@ -152,13 +157,18 @@ class ProjectChartTemplateView(TemplateView):
             context['project'] = Project.objects.filter(company__id = company_id).values('id', 'company__name', 'name')
         
         if project_id == None:
-            query_set = Project.objects.filter(company=company_id).order_by('-id').values('id').first()
-            project_id = query_set['id']
+            if self.request.user.is_superuser == True:
+                project_id = context['project'][0]['id']
+            else:
+                query_set = Project.objects.filter(company=company_id).order_by('-id').values('id').first()
+                if query_set != None:
+                    project_id = query_set['id']
+        
         
         cnt = Product.objects.filter(project=project_id).values('site_name').annotate(cnt=Count('site_name')).values('cnt', 'site_name')
         choices = {1:'타오바오', 2:'1688', 3:'알리바바', 4:'쇼피', 5: '기타'}
         for c in cnt:
-            c['site'] = choices[c['site_name']]        
+            c['site'] = choices[c['site_name']]
         context['cnt'] = cnt
         context['project_id'] = int(project_id)
         
@@ -169,7 +179,7 @@ class CategoryChartTemplateView(TemplateView):
     extra_context = {'title' : '기업별 침해유형 차트', 'site_title':'리팡 관리자 화면', 'site_header':'리팡 관리자 화면'}
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        company_id = self.request.user.company.id
+        
         #Project.objects.prefetch_related('product_set').values('product__site_name').annotate(site_cnt=Count('product__site_name'), product_name=F('project_id')).values('site_cnt', 'product_name')
         if self.request.user.is_superuser == True:
             company_id = kwargs.get('pk', 1)
